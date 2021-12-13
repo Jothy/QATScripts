@@ -30,7 +30,12 @@ from pdfminer3.pdfdocument import PDFDocument
 fp = open('Docs//IEC.pdf', 'rb')
 parser = PDFParser(fp)
 doc = PDFDocument(parser)
-print(doc.info[0]['ModDate'])
+ModDate=doc.info[0]['ModDate']
+print(ModDate)
+if ModDate==b"D:20221112140001+11'00'":
+    print('File format not modified')
+else:
+    print('File format modified')
 
 
 # rsrcmgr = PDFResourceManager()
