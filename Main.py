@@ -134,14 +134,12 @@ class QAT_API():
 
     def test(self):
         auth = self.getAuthorization()
-        resp = requests.get(self.root + '/contenttypes' , headers=auth)
+        resp = requests.get(self.root , headers=auth)
         units = resp.json()
         return units
 
-prodRoot="https://canberra.multileaf.ca/api"
-prodToken='19a5afaab6ad6a204f046213c99d7daa9677a5db'
 
-api=QAT_API(prodRoot,prodToken)
+api=QAT_API()
 
 
 #headers=api.getHeaders()
