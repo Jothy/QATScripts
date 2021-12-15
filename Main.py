@@ -9,6 +9,7 @@ class QAT_API():
 
     def __init__(self,root="https://canberra-staging.multileaf.ca/api",
                  token='754303d15f0cd9c49a8606a02a741eac5bf2d1c9'):
+        print('Connecting to mulileaf...@:' ,root)
         self.root=root
         self.token=token
 
@@ -100,6 +101,16 @@ class QAT_API():
             groupNames.append(groups['results'][x]['name'])
         return groupNames
 
+    def getUserEmails(self):
+        auth = self.getAuthorization()
+        resp = requests.get(self.root + '/auth/users', headers=auth)
+        emails= resp.json()
+        numEmails=np.size(emails['results'])
+        emailList=[]
+        for x in range(0,numEmails,1):
+            emailList.append(emails['results'][x]['email'])
+        return emailList
+
     def getTests(self):
         auth = self.getAuthorization()
         resp = requests.get(self.root + '/qc/tests', headers=auth)
@@ -123,7 +134,7 @@ class QAT_API():
 
     def test(self):
         auth = self.getAuthorization()
-        resp = requests.get(self.root+ '/qc/frequencies', headers=auth)
+        resp = requests.get(self.root+ '/auth/users', headers=auth)
         units = resp.json()
         return units
 
@@ -132,13 +143,14 @@ class QAT_API():
 
 api=QAT_API()
 
-# headers=api.getHeaders()
-# pp.pprint(headers)
+
+#headers=api.getHeaders()
+#pp.pprint(headers)
 
 #test=api.test()
 #pp.pprint(test)
 
-users=api.getTestFrequencies()
+users=api.getUserEmails()
 pp.pprint(users)
 
 # units=api.getUnits()
