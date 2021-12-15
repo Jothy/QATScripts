@@ -28,12 +28,12 @@ class QAT_API():
         return auth
 
     def getHeaders(self):
-        headers = self.getAuthorization(self.root,self.token)
+        headers = self.getAuthorization()
         resp = requests.get(root, headers=headers).json()
         return resp
 
     def getUnitNames(self):
-        auth = self.getAuthorization(self.root,self.token)
+        auth = self.getAuthorization()
         resp = requests.get(self.root + '/units/units', headers=auth)
         units = resp.json()
         numUnits=np.size(units['results'])
@@ -42,8 +42,8 @@ class QAT_API():
             unitNames.append(units['results'][x]['name'])
         return unitNames
 
-    def getVendorNames(self,root,token):
-        auth = self.getAuthorization(self.root,self.token)
+    def getVendorNames(self):
+        auth = self.getAuthorization()
         resp = requests.get(root + '/units/vendors', headers=auth)
         vendors = resp.json()
         numVendors = np.size(vendors['results'])
@@ -52,8 +52,8 @@ class QAT_API():
             vendorNames.append(vendors['results'][x]['name'])
         return vendorNames
 
-    def getSiteNames(self,root,token):
-        auth = self.getAuthorization(self.root,self.token)
+    def getSiteNames(self):
+        auth = self.getAuthorization()
         resp = requests.get(root + '/units/sites', headers=auth)
         sites = resp.json()
         numSites = np.size(sites['results'])
@@ -62,8 +62,8 @@ class QAT_API():
             siteNames.append(sites['results'][x]['name'])
         return siteNames
 
-    def getUnitClasses(self,root,token):
-        auth = self.getAuthorization(self.root,self.token)
+    def getUnitClasses(self):
+        auth = self.getAuthorization()
         resp = requests.get(root + '/units/unitclasses', headers=auth)
         classes = resp.json()
         numClasses = np.size(classes['results'])
@@ -73,8 +73,8 @@ class QAT_API():
         return classNames
 
 
-    def getUnits(self,root,token):
-        auth = self.getAuthorization(self.root,self.token)
+    def getUnits(self):
+        auth = self.getAuthorization()
         resp = requests.get(root + '/units/units', headers=auth)
         units = resp.json()
         return units['results']
@@ -85,6 +85,8 @@ class QAT_API():
 api=QAT_API()
 print(api.root)
 print(api.token)
+
+pp.pprint(api.getUnitNames())
 
 #headers=GetHeaders(root,token)
 #pp.pprint(headers)
