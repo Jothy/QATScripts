@@ -68,7 +68,6 @@ class QAT_API():
             classNames.append(classes['results'][x]['name'])
         return classNames
 
-
     def getUnits(self):
         auth = self.getAuthorization()
         resp = requests.get(self.root + '/units/units', headers=auth)
@@ -81,8 +80,43 @@ class QAT_API():
         unitDetails=self.getUnits()[unitIdx]
         return unitDetails
 
+    def getUserNames(self):
+        auth = self.getAuthorization()
+        resp = requests.get(self.root + '/auth/users', headers=auth)
+        users= resp.json()
+        numUsers=np.size(users['results'])
+        userNames=[]
+        for x in range(0,numUsers,1):
+            userNames.append(users['results'][x]['username'])
+        return userNames
+
+    def getUserGroups(self):
+        auth = self.getAuthorization()
+        resp = requests.get(self.root + '/auth/groups', headers=auth)
+        groups= resp.json()
+        numGroups=np.size(groups['results'])
+        groupNames=[]
+        for x in range(0,numGroups,1):
+            groupNames.append(groups['results'][x]['name'])
+        return groupNames
+
+
+    def test(self):
+        auth = self.getAuthorization()
+        resp = requests.get(self.root + '/auth/groups', headers=auth)
+        units = resp.json()
+        return units
+
+
+
 
 api=QAT_API()
+
+#test=api.test()
+#pp.pprint(test)
+
+users=api.getUserGroups()
+pp.pprint(users)
 
 # units=api.getUnits()
 # pp.pprint(units)
@@ -92,8 +126,8 @@ api=QAT_API()
 # headers=api.getHeaders()
 # pp.pprint(headers)
 
-classes=api.getUnitClasses()
-pp.pprint(classes)
+# classes=api.getUnitClasses()
+# pp.pprint(classes)
 
 
 
