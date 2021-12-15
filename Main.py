@@ -100,10 +100,30 @@ class QAT_API():
             groupNames.append(groups['results'][x]['name'])
         return groupNames
 
+    def getTests(self):
+        auth = self.getAuthorization()
+        resp = requests.get(self.root + '/qc/tests', headers=auth)
+        tests= resp.json()
+        numTests=np.size(tests['results'])
+        testNames=[]
+        for x in range(0,numTests,1):
+            testNames.append(tests['results'][x]['name'])
+        return testNames
+
+    def getTestFrequencies(self):
+        auth = self.getAuthorization()
+        resp = requests.get(self.root + '/qc/frequencies', headers=auth)
+        frequencies= resp.json()
+        numTests=np.size(frequencies['results'])
+        testFrequencies=[]
+        for x in range(0,numTests,1):
+            testFrequencies.append(frequencies['results'][x]['name'])
+        return testFrequencies
+
 
     def test(self):
         auth = self.getAuthorization()
-        resp = requests.get(self.root + '/auth/groups', headers=auth)
+        resp = requests.get(self.root+ '/qc/frequencies', headers=auth)
         units = resp.json()
         return units
 
@@ -112,10 +132,13 @@ class QAT_API():
 
 api=QAT_API()
 
+# headers=api.getHeaders()
+# pp.pprint(headers)
+
 #test=api.test()
 #pp.pprint(test)
 
-users=api.getUserGroups()
+users=api.getTestFrequencies()
 pp.pprint(users)
 
 # units=api.getUnits()
@@ -123,8 +146,7 @@ pp.pprint(users)
 
 #pp.pprint(api.getUnitDetails('Brindabella'))
 
-# headers=api.getHeaders()
-# pp.pprint(headers)
+
 
 # classes=api.getUnitClasses()
 # pp.pprint(classes)
