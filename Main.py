@@ -8,65 +8,100 @@ root = "https://canberra-staging.multileaf.ca/api"
 #Use token from QAT+
 token='754303d15f0cd9c49a8606a02a741eac5bf2d1c9'
 
-#Get access token using ID & password
-def RetriveToken(root,user,password):
-    token_url = root + "/get-token/"
-    resp=requests.post(token_url, {'username': user, 'password': password})
-    token = resp.json()['token']
-    return token
+class QAT_API():
+    connectionSuccess=None
 
-def GetAuthorization(root,token):
-    headers = {"Authorization": "Token %s" % token}
-    return headers
+    def __init__(self,root="https://canberra-staging.multileaf.ca/api",
+                 token='754303d15f0cd9c49a8606a02a741eac5bf2d1c9'):
+        self.root=root
+        self.token=token
+
+    #Get access token using ID & password
+    def getToken(self,root,user,password):
+        token_url = root + "/get-token/"
+        resp=requests.post(token_url, {'username': user, 'password': password})
+        token = resp.json()['token']
+        return token
+
+    def getAuthorization(self):
+        auth = {"Authorization": "Token %s" % self.token}
+        return auth
+
+    def getHeaders(self):
+        headers = self.getAuthorization(self.root,self.token)
+        resp = requests.get(root, headers=headers).json()
+        return resp
+
+    def getUnitNames(self):
+        auth = self.getAuthorization(self.root,self.token)
+        resp = requests.get(self.root + '/units/units', headers=auth)
+        units = resp.json()
+        numUnits=np.size(units['results'])
+        unitNames=[]
+        for x in range(0,numUnits,1):
+            unitNames.append(units['results'][x]['name'])
+        return unitNames
+
+    def getVendorNames(self,root,token):
+        auth = self.getAuthorization(self.root,self.token)
+        resp = requests.get(root + '/units/vendors', headers=auth)
+        vendors = resp.json()
+        numVendors = np.size(vendors['results'])
+        vendorNames = []
+        for x in range(0, numVendors, 1):
+            vendorNames.append(vendors['results'][x]['name'])
+        return vendorNames
+
+    def getSiteNames(self,root,token):
+        auth = self.getAuthorization(self.root,self.token)
+        resp = requests.get(root + '/units/sites', headers=auth)
+        sites = resp.json()
+        numSites = np.size(sites['results'])
+        siteNames = []
+        for x in range(0, numSites, 1):
+            siteNames.append(sites['results'][x]['name'])
+        return siteNames
+
+    def getUnitClasses(self,root,token):
+        auth = self.getAuthorization(self.root,self.token)
+        resp = requests.get(root + '/units/unitclasses', headers=auth)
+        classes = resp.json()
+        numClasses = np.size(classes['results'])
+        classNames = []
+        for x in range(0, numClasses, 1):
+            classNames.append(classes['results'][x]['name'])
+        return classNames
 
 
-def GetHeaders(root,token):
-    headers = GetAuthorization(root,token)
-    resp = requests.get(root, headers=headers).json()
-    return resp
+    def getUnits(self,root,token):
+        auth = self.getAuthorization(self.root,self.token)
+        resp = requests.get(root + '/units/units', headers=auth)
+        units = resp.json()
+        return units['results']
 
-def GetUnitNames(root,token):
-    auth = GetAuthorization(root, token)
-    resp = requests.get(root + '/units/units', headers=auth)
-    units = resp.json()
-    numUnits=np.size(units['results'])
-    unitNames=[]
-    for x in range(0,numUnits,1):
-        unitNames.append(units['results'][x]['name'])
-    return unitNames
+    def getUnitDetails(self,unitName):
+        pass
 
-def GetUnits(root,token):
-    auth = GetAuthorization(root, token)
-    resp = requests.get(root + '/units/units', headers=auth)
-    units = resp.json()
-    return units['results']
+api=QAT_API()
+print(api.root)
+print(api.token)
 
-def GetUnitUrl(root,token,unitName):
-    pass
+#headers=GetHeaders(root,token)
+#pp.pprint(headers)
 
+#classes=GetUnitClasses(root,token)
+#pp.pprint(classes)
 
-
-# headers=GetHeaders(root,token)
-# pp.pprint(headers)
-
-unitNames=GetUnitNames(root,token)
-# pp.pprint(unitNames)
-CTIdx=unitNames.index('LA4')
-#print(CTIdx)
-
-units=GetUnits(root,token)
-pp.pprint(units[CTIdx])
+# unitNames=GetUnitNames(root,token)
+# # pp.pprint(unitNames)
+# CTIdx=unitNames.index('LA4')
+# units=GetUnits(root,token)
+# pp.pprint(units[CTIdx])
 
 
 
 
 
-
-# #get BB details
-# resp = requests.get(root + '/units/units/7', headers=headers)
-# BB_JSON=resp.json()
-# #pp.pprint(BB_JSON)
-#
 # resp = requests.get(root + '/qa/testinstances', headers=headers)
 # #pp.pprint(resp.json())
 #
