@@ -3,10 +3,6 @@ import pprint as pp
 import pylab as pl
 import numpy as np
 
-#QAT+ staging server
-root = "https://canberra-staging.multileaf.ca/api"
-#Use token from QAT+
-token='754303d15f0cd9c49a8606a02a741eac5bf2d1c9'
 
 class QAT_API():
     connectionSuccess=None
@@ -44,7 +40,7 @@ class QAT_API():
 
     def getVendorNames(self):
         auth = self.getAuthorization()
-        resp = requests.get(root + '/units/vendors', headers=auth)
+        resp = requests.get(self.root + '/units/vendors', headers=auth)
         vendors = resp.json()
         numVendors = np.size(vendors['results'])
         vendorNames = []
@@ -54,7 +50,7 @@ class QAT_API():
 
     def getSiteNames(self):
         auth = self.getAuthorization()
-        resp = requests.get(root + '/units/sites', headers=auth)
+        resp = requests.get(self.root + '/units/sites', headers=auth)
         sites = resp.json()
         numSites = np.size(sites['results'])
         siteNames = []
@@ -64,7 +60,7 @@ class QAT_API():
 
     def getUnitClasses(self):
         auth = self.getAuthorization()
-        resp = requests.get(root + '/units/unitclasses', headers=auth)
+        resp = requests.get(self.root + '/units/unitclasses', headers=auth)
         classes = resp.json()
         numClasses = np.size(classes['results'])
         classNames = []
@@ -75,18 +71,23 @@ class QAT_API():
 
     def getUnits(self):
         auth = self.getAuthorization()
-        resp = requests.get(root + '/units/units', headers=auth)
+        resp = requests.get(self.root + '/units/units', headers=auth)
         units = resp.json()
         return units['results']
 
     def getUnitDetails(self,unitName):
-        pass
+        unitNames=self.getUnitNames()
+        unitIdx=unitNames.index(unitName)
+        unitDetails=self.getUnits()[unitIdx]
+        return unitDetails
+
 
 api=QAT_API()
-print(api.root)
-print(api.token)
 
-pp.pprint(api.getUnitNames())
+# units=api.getUnits()
+# pp.pprint(units)
+
+pp.pprint(api.getUnitDetails('LA4'))
 
 #headers=GetHeaders(root,token)
 #pp.pprint(headers)
