@@ -24,8 +24,8 @@ class QAT_API():
         return auth
 
     def getHeaders(self):
-        headers = self.getAuthorization()
-        resp = requests.get(root, headers=headers).json()
+        auth = self.getAuthorization()
+        resp = requests.get(self.root, headers=auth).json()
         return resp
 
     def getUnitNames(self):
@@ -87,50 +87,16 @@ api=QAT_API()
 # units=api.getUnits()
 # pp.pprint(units)
 
-pp.pprint(api.getUnitDetails('LA4'))
+#pp.pprint(api.getUnitDetails('Brindabella'))
 
-#headers=GetHeaders(root,token)
-#pp.pprint(headers)
+# headers=api.getHeaders()
+# pp.pprint(headers)
 
-#classes=GetUnitClasses(root,token)
-#pp.pprint(classes)
-
-# unitNames=GetUnitNames(root,token)
-# # pp.pprint(unitNames)
-# CTIdx=unitNames.index('LA4')
-# units=GetUnits(root,token)
-# pp.pprint(units[CTIdx])
+classes=api.getUnitClasses()
+pp.pprint(classes)
 
 
 
-
-
-# resp = requests.get(root + '/qa/testinstances', headers=headers)
-# #pp.pprint(resp.json())
-#
-#
-# url = root + '/qa/testinstances/'
-# params = {
-#     "unit_test_info__unit__name": "LA1",
-#     "unit_test_info__test__name": "6X D(5cm)",
-# }
-#
-# resp = requests.get(url, params, headers=headers)
-# payload = resp.json()
-# data = [(x['created'], x['value']) for x in payload['results']]
-# #pp.pprint(data)
-#
-# outputs=[]
-# print('-----------------------------------------------------')
-# print('Data points found: ',np.shape(data))
-# for x in range(0,np.shape(data)[0],1):
-#     outputs.append((data[x][1]))
-# pl.plot(outputs)
-# ref=np.linspace(0,np.shape(data)[0],65)
-# print(ref)
-# pl.plot(ref,ref*0.0+1.0)
-# pl.title('LA1:6X output trend (cGy)')
-# pl.show()
 
 
 
