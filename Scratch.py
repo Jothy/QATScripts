@@ -3,14 +3,14 @@ import pprint as pp
 
 
 root = "https://canberra-staging.multileaf.ca/api"
-token_url = root + "/get-token/"
-resp = requests.post(token_url, {'username': 'jselvaraj', 'password': 'Shiva_1234'})
-token = resp.json()['token']
+#token_url = root + "/get-token/"
+#resp = requests.post(token_url, {'username': 'jselvaraj', 'password': 'Shiva_1234'})
+token = "754303d15f0cd9c49a8606a02a741eac5bf2d1c9"
 auth = {"Authorization": "Token %s" % token}
 #print(auth)
 
 # first find the UnitTestCollection we want to perform
-resp = requests.get(root + '/qa/unittestcollections/?unit__name__icontains=LA4&test_list__name__icontains=RPM QA', headers=auth)
+resp = requests.get(root + '/qa/unittestcollections/?unit__name__icontains=LA4&test_list__name__icontains=Electron Energy', headers=auth)
 utc_url = resp.json()['results'][0]['url']
 pp.pprint(utc_url)
 
@@ -19,11 +19,16 @@ pp.pprint(utc_url)
 data = {
     'unit_test_collection': utc_url,
     'in_progress': False,  # optional, default is False
-    'work_started': "2021-12-15 11:00",
-    'work_completed': "2021-12-15 12:00",  # optional
-    'comment': "Testing waters...",  # optional
+    'work_started': "2021-12-16 15:00",
+    'work_completed': "2021-12-16 16:00",  # optional
+    'comment': "Testing waters 8...",  # optional
     'tests': {
-        'rpm_trilogy_done': {'value':True, 'comment': "hello number 1"}, # comment is optional
+        'set_baseline': {'value': 'No'},
+        'E20': {'value':21.05, 'comment': "hello number 1"},
+        'E16': {'value':17.2, 'comment': "hello number 1"},
+        'E12': {'value':12.1, 'comment': "hello number 1"},
+        'E9': {'value':9.05, 'comment': "hello number 1"},
+        'E6': {'value':6.03, 'comment': "hello number 1"},
     },
     'attachments': []  # optional
 }
