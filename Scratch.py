@@ -16,6 +16,8 @@ pp.pprint(utc_url)
 
 # prepare the data to submit to the API. Notice you don't need to submit a value for
 # sum_of_two since it is calculated from number_1 and number_2
+
+#YYYY-MM-DD HH:SS format (so 2021-12-1 1:00 is not valid)
 data = {
     'unit_test_collection': utc_url,
     'in_progress': False,  # optional, default is False
