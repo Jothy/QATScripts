@@ -1,0 +1,1 @@
+streamlit run D:/Projects/QATScripts/Streamlit.py

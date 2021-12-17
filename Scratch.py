@@ -18,9 +18,9 @@ pp.pprint(utc_url)
 #YYYY-MM-DD HH:SS format (so 2021-12-1 1:00 is not valid)
 data = {
     'unit_test_collection': utc_url,
-    'in_progress': False,  # optional, default is False
-    'work_started': "2021-12-17 15:00",
-    'work_completed': "2021-12-17 16:00",  # optional
+    'in_progress': True,  # optional, default is False
+    'work_started': "2021-12-17 12:00",
+    'work_completed': "2021-12-17 13:00",  # optional
     'comment': "Testing waters 8...",  # optional
     'tests': {
         'set_baseline': {'value': 'No'},
@@ -34,5 +34,5 @@ data = {
 }
 resp = requests.post(root + "/qa/testlistinstances/", json=data, headers=auth)
 
-print(resp)
+pp.pprint(resp.json())
 
