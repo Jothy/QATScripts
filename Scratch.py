@@ -3,8 +3,6 @@ import pprint as pp
 
 
 root = "https://canberra-staging.multileaf.ca/api"
-#token_url = root + "/get-token/"
-#resp = requests.post(token_url, {'username': 'jselvaraj', 'password': 'Shiva_1234'})
 token = "754303d15f0cd9c49a8606a02a741eac5bf2d1c9"
 auth = {"Authorization": "Token %s" % token}
 #print(auth)
@@ -21,8 +19,8 @@ pp.pprint(utc_url)
 data = {
     'unit_test_collection': utc_url,
     'in_progress': False,  # optional, default is False
-    'work_started': "2021-12-16 15:00",
-    'work_completed': "2021-12-16 16:00",  # optional
+    'work_started': "2021-12-17 15:00",
+    'work_completed': "2021-12-17 16:00",  # optional
     'comment': "Testing waters 8...",  # optional
     'tests': {
         'set_baseline': {'value': 'No'},

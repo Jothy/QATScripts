@@ -3,6 +3,9 @@ import pprint as pp
 import pylab as pl
 import numpy as np
 
+#QAT+ demo site root adn token
+#"http://randlet.com/qatrack/api"\
+#"eac2dae558ffedaaedcae401f80c3ba85d142f6a"
 
 class QAT_API():
     connectionSuccess=None
@@ -139,17 +142,18 @@ class QAT_API():
         return units
 
 
+#use QAT+ demo site
 api=QAT_API()
 
 
 #headers=api.getHeaders()
 #pp.pprint(headers)
 
-test=api.test()
-pp.pprint(test)
+# test=api.test()
+# pp.pprint(test)
 
-#users=api.getUserEmails()
-#pp.pprint(users)
+# users=api.getUserEmails()
+# pp.pprint(users)
 
 #units=api.getUnitNames()
 #pp.pprint(units)
@@ -158,8 +162,8 @@ pp.pprint(test)
 
 
 
-# classes=api.getUnitClasses()
-# pp.pprint(classes)
+classes=api.getVendorNames()
+pp.pprint(classes)
 
 
 
