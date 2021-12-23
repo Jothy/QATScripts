@@ -1,1 +1,1 @@
-streamlit run D:/Projects/QATScripts/Streamlit.py
+streamlit run D:/Projects/QATScripts/ScriptStreamlit.py

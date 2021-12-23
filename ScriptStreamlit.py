@@ -1,21 +1,19 @@
 import streamlit as st
 import requests
-
+from ScriptAPI import QAT_API as api
 
 url = "https://canberra-staging.multileaf.ca/api"
 timeout = 5
 token = "00754303d15f0cd9c49a8606a02a741eac5bf2d1c9"
 auth = {"Authorization": "Token %s" % token}
 
-request = requests.get(url,headers=auth)
-print(request)
 
-try:
-	request = requests.get(url, timeout=timeout,headers=auth)
-	st.success('Connected to '+url)
-except (requests.ConnectionError, requests.Timeout) as exception:
-	st.error("Could not connect to ",url)
-
+def tryLogin():
+    request = requests.get(url, headers=auth)
+    if(request.json()['detail']!='invalid token'):
+        st.success('Connected to '+url)
+    else:
+        st.error("Login failed")
 
 st.markdown("<h1 style='text-align: center; color: white;'>QATrack+ Scripts</h1>",unsafe_allow_html=True)
 st.sidebar.title("Welcome to QAT+ Scripts")
@@ -29,6 +27,10 @@ option = st.selectbox(
     ('','Brendan Wright','Ben Cooper','Helen Gustafsson','Jothy Selvaraj', 'Jon Lee','Kim Legge','kasia Bobrowski', 'Nigel Freeman','Ravi Thura'))
 
 password = st.text_input("Enter your password", type="password")
+
+tryLogin()
+
+
 
 
 

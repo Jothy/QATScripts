@@ -143,7 +143,7 @@ class QAT_API():
 
 
 #use QAT+ demo site
-api=QAT_API()
+#api=QAT_API()
 
 
 #headers=api.getHeaders()
@@ -162,8 +162,8 @@ api=QAT_API()
 
 
 
-classes=api.getVendorNames()
-pp.pprint(classes)
+#classes=api.getVendorNames()
+#pp.pprint(classes)
 
 
 
