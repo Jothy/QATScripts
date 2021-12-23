@@ -19,27 +19,29 @@ def tryLogin():
 st.title("QATrack+ Scripts")
 st.sidebar.title("Welcome to QAT+ Scripts")
 st.sidebar.subheader('------QATrack+ automation------')
+st.sidebar.button('Somatom_1_QA')
 
-site=st.selectbox('Select site',('Clinical','Staging'))
 
-option = st.selectbox(
-     'Select user',
-    ('','Brendan Wright','Ben Cooper','Helen Gustafsson','Jothy Selvaraj', 'Jon Lee','Kim Legge','kasia Bobrowski', 'Nigel Freeman','Ravi Thura'))
-
-password = st.text_input("Enter your password", type="password")
 
 with st.form("my_form"):
-    st.write("Inside the form")
-    slider_val = st.slider("Form slider")
-    checkbox_val = st.checkbox("Form checkbox")
+    site=st.selectbox('Select site',('Clinical','Staging'))
+    user = st.selectbox(
+        'Select user',
+        ('','Brendan Wright','Ben Cooper','Helen Gustafsson','Jothy Selvaraj', 'Jon Lee','Kim Legge','kasia Bobrowski', 'Nigel Freeman','Ravi Thura'))
+    password = st.text_input("Enter your password", type="password")
 
     # Every form must have a submit button.
     submitted = st.form_submit_button("Submit")
     if submitted:
-        st.write("slider", slider_val, "checkbox", checkbox_val)
+        st.write("User:",user)
 
 
 tryLogin()
+if site=='Staging':
+    st.write("Please review submitted results on  "+"https://canberra-staging.multileaf.ca")
+else:
+    st.write("Please review submitted results on  "+"https://canberra.multileaf.ca")
+
 
 
 
