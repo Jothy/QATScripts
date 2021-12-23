@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 
+
 url = "https://canberra-staging.multileaf.ca/api"
 timeout = 5
 token = "00754303d15f0cd9c49a8606a02a741eac5bf2d1c9"
@@ -29,8 +30,7 @@ option = st.selectbox(
 
 password = st.text_input("Enter your password", type="password")
 
-if st.button("Login"):
-    st.write(password)
+
 
 
 
