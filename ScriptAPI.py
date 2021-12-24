@@ -4,21 +4,20 @@ import pylab as pl
 import numpy as np
 
 #QAT+ demo site root and token
-#"http://randlet.com/qatrack/api"\
+url="https://canberra-staging.multileaf.ca/api"
 #"eac2dae558ffedaaedcae401f80c3ba85d142f6a"
 
 class QAT_API():
     connectionSuccess=None
 
-    def __init__(self,root="https://canberra-staging.multileaf.ca/api",
-                 token='754303d15f0cd9c49a8606a02a741eac5bf2d1c9'):
-        print('Connecting to Multileaf... @:' ,root)
+    def __init__(self,root=None,token=None):
         self.root=root
         self.token=token
 
     #Get access token using ID & password
     def getToken(self,root,user,password):
         token_url = root + "/get-token/"
+        print(token_url)
         resp=requests.post(token_url, {'username': user, 'password': password})
         token = resp.json()['token']
         return token
@@ -144,8 +143,9 @@ class QAT_API():
 
 #use QAT+ demo site
 # api=QAT_API()
-# users=api.getUserNames()
-# pp.pprint(users)
+#
+# tkn=api.getToken(url,'jselvaraj','Shiva_1234')
+# pp.pprint(tkn)
 
 
 #headers=api.getHeaders()
@@ -161,8 +161,6 @@ class QAT_API():
 #pp.pprint(units)
 
 #pp.pprint(api.getUnitDetails('Brindabella'))
-
-
 
 #classes=api.getVendorNames()
 #pp.pprint(classes)

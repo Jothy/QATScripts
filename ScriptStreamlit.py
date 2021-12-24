@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 import configparser
-from ScriptAPI import QAT_API as api
+from ScriptAPI import QAT_API
 
 config = configparser.ConfigParser()
 config.read('Settings.properties')
@@ -19,26 +19,25 @@ users=config.get("General",'users')
 users=users.split(',')
 
 url = "https://canberra-staging.multileaf.ca/api"
-timeout = 5
-token = "754303d15f0cd9c49a8606a02a741eac5bf2d1c9"
-auth = {"Authorization": "Token %s" % token}
+# timeout = 5
+# token = "754303d15f0cd9c49a8606a02a741eac5bf2d1c9"
+# auth = {"Authorization": "Token %s" % token}
 
+api=QAT_API()
 
-def tryLogin():
+def tryLogin(url,ID,password):
+    token=api.getToken(url,ID,password)
+    auth = {"Authorization": "Token %s" % token}
     resp = requests.get(url, headers=auth)
-    if 200 <= resp.status_code <= 299:
+    if resp.status_code==200:
         st.write('Login Success!')
-    else:
-        st.error('Login failed!')
+    return token
 
 
 st.title("QATrack+ Scripts")
 st.sidebar.title("Welcome to QAT+ Scripts")
 st.sidebar.subheader('------QATrack+ automation------')
 st.sidebar.button('Somatom_1_QA')
-
-sites=config.items('Sites')
-
 
 with st.form("my_form"):
     site=st.selectbox('Select site',siteNames)
@@ -49,12 +48,9 @@ with st.form("my_form"):
     # Every form must have a submit button.
     submitted = st.form_submit_button("Submit")
     if submitted:
-        st.write("User:",user)
-        tryLogin()
-        if site=='staging':
-            st.write("Please review submitted results on  "+"https://canberra-staging.multileaf.ca")
-        elif site=='clinical':
-            st.write("Please review submitted results on  "+"https://canberra.multileaf.ca")
+        token=tryLogin(sites[site],user,password)
+        st.write("Please review submitted results on  "+sites[site].strip('api'))
+
 
 
 

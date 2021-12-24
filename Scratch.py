@@ -45,6 +45,7 @@ config.read('Settings.properties')
 users=config.get("General",'users')
 
 
-
+ss='https://canberra.multileaf.ca/api'
+print(ss.strip('api'))
 
 
