@@ -8,6 +8,15 @@ config.read('Settings.properties')
 
 st.set_page_config(page_title='QATScripts', page_icon = 'Images\\QATScriptIcon.png', layout = 'centered', initial_sidebar_state = 'auto')
 
+siteNames=[]
+siteURLs=[]
+sites=dict(config.items('Sites'))
+for key in sites:
+    siteNames.append(key)
+    siteURLs.append(sites[key])
+
+users=config.get("General",'users')
+users=users.split(',')
 
 url = "https://canberra-staging.multileaf.ca/api"
 timeout = 5
@@ -32,10 +41,9 @@ sites=config.items('Sites')
 
 
 with st.form("my_form"):
-    site=st.selectbox('Select site',('Clinical','Staging'))
+    site=st.selectbox('Select site',siteNames)
     user = st.selectbox(
-        'Select user',
-        ('','Brendan Wright','Ben Cooper','Helen Gustafsson','Jothy Selvaraj', 'Jon Lee','Kim Legge','kasia Bobrowski', 'Nigel Freeman','Ravi Thura'))
+        'Select user',users)
     password = st.text_input("Enter your password", type="password")
 
     # Every form must have a submit button.
