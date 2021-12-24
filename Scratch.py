@@ -44,7 +44,8 @@ config.read('Settings.properties')
 
 print(config.get("General", "ProgramName"))
 sites=config.get("General","Sites")
-print(sites)
+users=config.get("General",'users')
+print(users)
 
 
 

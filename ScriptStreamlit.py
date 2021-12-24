@@ -2,6 +2,9 @@ import streamlit as st
 import requests
 from ScriptAPI import QAT_API as api
 
+st.set_page_config(page_title='QATScripts', page_icon = 'Images\\QATScriptIcon.png', layout = 'centered', initial_sidebar_state = 'auto')
+
+
 url = "https://canberra-staging.multileaf.ca/api"
 timeout = 5
 token = "754303d15f0cd9c49a8606a02a741eac5bf2d1c9"
