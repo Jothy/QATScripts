@@ -1,6 +1,10 @@
 import streamlit as st
 import requests
+import configparser
 from ScriptAPI import QAT_API as api
+
+config = configparser.ConfigParser()
+config.read('Settings.properties')
 
 st.set_page_config(page_title='QATScripts', page_icon = 'Images\\QATScriptIcon.png', layout = 'centered', initial_sidebar_state = 'auto')
 
@@ -24,6 +28,7 @@ st.sidebar.title("Welcome to QAT+ Scripts")
 st.sidebar.subheader('------QATrack+ automation------')
 st.sidebar.button('Somatom_1_QA')
 
+sites=config.items('Sites')
 
 
 with st.form("my_form"):

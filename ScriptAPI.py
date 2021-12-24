@@ -3,7 +3,7 @@ import pprint as pp
 import pylab as pl
 import numpy as np
 
-#QAT+ demo site root adn token
+#QAT+ demo site root and token
 #"http://randlet.com/qatrack/api"\
 #"eac2dae558ffedaaedcae401f80c3ba85d142f6a"
 

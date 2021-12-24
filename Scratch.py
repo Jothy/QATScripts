@@ -38,14 +38,17 @@ import pprint as pp
 
 
 import configparser
+import numpy as np
 
 config = configparser.ConfigParser()
 config.read('Settings.properties')
 
-print(config.get("General", "ProgramName"))
-sites=config.get("General","Sites")
+#print(config.get("General", "ProgramName"))
 users=config.get("General",'users')
-print(users)
+siteHTMLs=dict(config.items('Sites'))
+for key in siteHTMLs:
+    print(key,':',siteHTMLs[key])
+
 
 
 
