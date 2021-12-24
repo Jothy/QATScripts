@@ -50,13 +50,14 @@ with st.form("my_form"):
     submitted = st.form_submit_button("Submit")
     if submitted:
         st.write("User:",user)
+        tryLogin()
+        if site=='staging':
+            st.write("Please review submitted results on  "+"https://canberra-staging.multileaf.ca")
+        elif site=='clinical':
+            st.write("Please review submitted results on  "+"https://canberra.multileaf.ca")
 
 
-tryLogin()
-if site=='Staging':
-    st.write("Please review submitted results on  "+"https://canberra-staging.multileaf.ca")
-else:
-    st.write("Please review submitted results on  "+"https://canberra.multileaf.ca")
+
 
 
 
