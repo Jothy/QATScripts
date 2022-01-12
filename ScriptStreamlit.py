@@ -1,10 +1,13 @@
+import os
+
 import streamlit as st
 import requests
 import configparser
 from ScriptAPI import QAT_API
 
+cwd=os.getcwd()
 config = configparser.ConfigParser()
-config.read('Settings.properties')
+config.read(os.path.join(cwd,'Settings.properties'))
 
 st.set_page_config(page_title='QATScripts', page_icon = 'Images\\QATScriptIcon.png', layout = 'centered', initial_sidebar_state = 'auto')
 
