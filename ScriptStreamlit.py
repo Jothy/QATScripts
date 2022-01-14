@@ -5,7 +5,7 @@ import requests
 import configparser
 from ScriptAPI import QAT_API
 
-cwd=os.getcwd()
+cwd='D:\\Projects\\QATScripts'
 config = configparser.ConfigParser()
 config.read(os.path.join(cwd,'Settings.properties'))
 
